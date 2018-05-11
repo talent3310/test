@@ -8,20 +8,21 @@ var valid_count_temp;
 var dataFromScraping;
 
 socket.on('connect', function () {
-  console.log('== connected to localhost:3006 ==');
+  console.log('connected to localhost:3006');
   socket.on('clientEvent', function (data) {
     dataFromScraping = data;
     valid_count ++;
+    console.log("valid_count==>", valid_count);
   });
 });
 
 async function run() {
-  const width = 1600;
-  const height = 1400;
+  const width = 1200;
+  const height = 1200;
   const browser = await puppeteer.launch({
     headless: false,
     slowMo: 250, // slow down by 250ms
-    devtools: true,
+    devtools: false,
     args: [
       `--window-size=${ width },${ height }`
     ],
@@ -49,7 +50,10 @@ async function run() {
 run();
 
 async function betting(page) {
+  console.time('==betting query==');
+  console.log(valid_count, '--', valid_count_temp);
   if(valid_count_temp != valid_count) {
+    valid_count_temp = valid_count;
     var btnArr = await page.evaluate((scrapingData) => {
       console.log("scrapingData==>", scrapingData);
       var submitBtnArr = [];
@@ -91,12 +95,12 @@ async function betting(page) {
     await page.click('div#single_options a.stakeboxActionsBtn.stakeboxActionsMinus');
     await page.click('div#single_options a.stakeboxActionsBtn.stakeboxActionsMinus');
     //submit
+    console.timeEnd('==betting query==');
     await page.click('div#idBetSlipSummaryArea div#place button#PlaceBetButton');
     //
     await page.waitFor(3000);
     await page.click('a#ClearBetButton');
     await page.waitFor(1000);
-    valid_count_temp = valid_count;
   } else {
     await page.waitFor(3000);
   }
