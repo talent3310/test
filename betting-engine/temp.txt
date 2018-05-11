@@ -1,0 +1,3 @@
+div.responsive-block.game_block
+div.event-view.clearfix
+ul.event-view-column.event-view-column-left
