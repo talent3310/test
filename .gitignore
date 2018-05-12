@@ -1,2 +1,16 @@
 betting-engine/node_modules
 scraping-engine/node_modules
+base64-arraybuffer
+better-assert
+blob
+brace-expansion
+callsite
+component-bind
+component-emitter
+component-inherit
+concat-map
+concat-stream
+core-util-is
+debug
+engine.io-client
+engine.io-parser
