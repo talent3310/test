@@ -211,7 +211,7 @@ async function refreshData(page, socket) {
     }
     await page.click('a.btn-refresh');
     console.log('---- new -----');
-    var intervalTime = 1000;
+    var intervalTime = 5000;
     if(!data.isLive) intervalTime = 30 * 60 * 1000// Not live -- 30 minutes interval
     sleep(refreshData, intervalTime, page, socket); // periods: 3s
   }
